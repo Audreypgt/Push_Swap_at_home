@@ -1,3 +1,39 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: apeuget <audrey.peuget@learner.42.tech>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/23 12:42:49 by apeuget           #+#    #+#             */
+/*   Updated: 2026/01/02 17:17:11 by apeuget          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "push_swap.h"
+
+int	ft_isonlydigit(char *nb)
+{
+	int	i;
+
+	i = 0;
+	while (nb[i])
+	{
+		if (!ft_isdigit(nb[i]))
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+int	ft_isduplicate(int *tab, int argc)
+{
+	while (argc < 0)
+	{
+
+	}
+}
+
 int	ft_isseveralargs(char *str)
 {
 	int	i;
@@ -5,7 +41,7 @@ int	ft_isseveralargs(char *str)
 
 	i = 0;
 	arg = 0;
-	while(str[i])
+	while (str[i])
 	{
 		while (str[i] == ' ' || str[i] == '\t')
 			i++;
@@ -14,36 +50,49 @@ int	ft_isseveralargs(char *str)
 		i++;
 	}
 	if (arg < 1)
-		return (1)
+		return (1);
 	return (0);
 }
 
 int	main(int argc, char **argv)
 {
-	int	i;
-	char **split_arg;
+	int		i;
+	char	**split_arg;
+	int		*tab;
+	list_nombre *aled;
 
-	// si argc == 2 et mais qu'on a qu'un chiffre on return error ? ou on lance le prog quand meme ?
-	// gerer cas de duplicate car interdit
-	if (argc == 1 && ft_isseveralargs(argv[1]))
+	if (argc == 2 && ft_isseveralargs(argv[1]) && ft_isonlydigit(argv[1]))
 	{
-		split_arg = ft_split(argv[1]);
-		// donc la on a notre tableau d'arg, il faut le gerer comme si on avait nos several argv
-		// il faut gerer le cas ou on a que un arg au final car split peut nous ressortir un tableau
-		// avec une seule case du coup ?
-		// --> SOLUTION on verifie ce quil y a dedans, si ya des chiffres et des espaces on envoie a split
-		// skip les espaces de debut comme pour atoi
+		int	newargc;
+
+		newargc = 0;
+		aled = create_liste(ft_split(argv[1]));
+		if (!aled)
+		{
+			//message d'erreur
+		}
 	}
-	if (argc > 1)
+	// si on a que 1 arg, on verifie si cest plusieurs arg ou pas
+	// la le soucis cest quon rentre dans le 2e if du coup, ce qui pourrait etre bien
+	// mais faudrait pouvoir utiliser split_arg a la place de argv dans ce cas
+	if (argc > 2)
 	{
 		i = 0;
 		while (argv[i])
 		{
-			//first --> checker si tous les arg sont dans argv[1] ou pas
-			// pour ca :
-			argv[i] = ft_atoi(argv[i]); //on a un chiffre clean
-
+			if (!ft_isonlydigit(argv[i]))
+				return (0);
+			argv[i] = ft_atoi(argv[i]);
+			i++;
 		}
 	}
+	while (argv[i])
+	{
+		tab[i] = ft_itoa(argv[i]);
+		i++;
+	}
+	//est ce quon doit pas mettre cette boucle while dans nos if ? comment on gere le fait quon a 2 if ?
+	if (ft_isduplicate(tab, argc))
+		return (0);
 	return (0);
 }
